@@ -15,6 +15,10 @@ This is the optimization section from [React - The Complete Guide (incl Hooks, R
 - React executes component functions
 - Changes to the real DOM are only made for differences between evaluations
 - Child components are re-evaluated and re-executed when parent state changes because they are function calls within the parent function which is re-executing so in turn the children also have to re-execute
+- React schedules state changes, so it prioritizes state changes and can postpone some state changes
+  - This is why function form of updating state is required for state changes that depend on the previous state
+  - useEffect is ensured to re-run the effect every time the state or value is changed, so can't miss any state changes and will guarantee that the latest state is always passed
+- State batching, React will batch together state update changes that come from the same function
 
 ## React.memo()
 
@@ -32,3 +36,9 @@ This is the optimization section from [React - The Complete Guide (incl Hooks, R
 - Since JS functions are closures that are defined when the components are run, the values for the variables are also locked when the function is defined (when the component renders)
 - See the App.js `toggleParagraphHandler` for example
   - Without the `allowToggle` dependency, the allowToggle value inside of the function would never change and the button wouldn't work
+
+## useMemo()
+
+- First argument wants a function
+  - Returns what should be stored
+- Second argument is an array of dependencies
